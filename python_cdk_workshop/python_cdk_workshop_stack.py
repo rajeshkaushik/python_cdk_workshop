@@ -1,4 +1,3 @@
-from constructs import Construct
 from aws_cdk import (
     Duration,
     Stack,
@@ -10,6 +9,8 @@ from aws_cdk import (
     aws_lambda as _lambda
 )
 
+from constructs import Construct
+from cdk_dynamo_table_view import TableViewer
 from .hitcounter import HitCounter
 
 class PythonCdkWorkshopStack(Stack):
@@ -33,4 +34,11 @@ class PythonCdkWorkshopStack(Stack):
         apigw.LambdaRestApi(
             self, 'Endpoint',
             handler=hello_with_counter.handler,
+        )
+
+        TableViewer(
+            self, 'ViewHitCounter',
+            title='Hello Hits',
+            table=hello_with_counter.table,
+            sort_by='-hits'
         )
