@@ -5,6 +5,8 @@ from aws_cdk import (
     RemovalPolicy
 )
 
+from os import path
+
 class HitCounter(Construct):
 
     @property
@@ -24,11 +26,20 @@ class HitCounter(Construct):
             removal_policy=RemovalPolicy.DESTROY
         )
 
+#        #layer for external dependencies
+#        my_layer = _lambda.LayerVersion(self, "MyLayer",
+#            #removal_policy=RemovalPolicy.RETAIN,
+#            code=_lambda.Code.from_asset(path.join(path.abspath('/Users/rajesh.kaushik/projects/python_cdk_workshop'), ".venv/lib/python3.10/site-packages")),
+#            compatible_runtimes=[_lambda.Runtime.PYTHON_3_10],
+#            compatible_architectures=[_lambda.Architecture.X86_64, _lambda.Architecture.ARM_64]
+#        )
+
         self._handler = _lambda.Function(
             self, 'HitCountHandler',
             runtime=_lambda.Runtime.PYTHON_3_10,
             handler='hitcount.handler',
             code=_lambda.Code.from_asset('lambda'),
+#            layers=[my_layer],
             environment={
                 'DOWNSTREAM_FUNCTION_NAME': downstream.function_name,
                 'HITS_TABLE_NAME': self._table.table_name,

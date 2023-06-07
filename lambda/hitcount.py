@@ -2,6 +2,12 @@ import json
 import os
 
 import boto3
+import sys
+print(sys.path)
+sys.path.append('./dependencies/lib/python3.10/site-packages')
+print(sys.path)
+print(os.listdir())
+import requests
 
 ddb = boto3.resource('dynamodb')
 table = ddb.Table(os.environ['HITS_TABLE_NAME'])

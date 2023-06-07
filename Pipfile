@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+aws-cdk-lib = "==2.82.0"
+constructs = ">=10.0.0,<11.0.0"
+cdk-dynamo-table-view = "==0.2.463"
+requests = "*"
+ipython = "*"
+
+[dev-packages]
+ipython = "*"
+
+[requires]
+python_version = "3.10"
